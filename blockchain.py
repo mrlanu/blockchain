@@ -1,5 +1,5 @@
 # Initializing our (empty) blockchain list
-MINING_REWARDS = 10
+MINING_REWARD = 10
 
 genesis_block = {
     'previous_hash': '',
@@ -10,7 +10,6 @@ blockchain = [genesis_block]
 open_transactions = []
 owner = 'Serhiy'
 participants = {'Serhiy'}
-
 
 
 def hash_block(block):
@@ -78,16 +77,14 @@ def mine_block():
         'recipient': owner,
         'amount': MINING_REWARD
     }
-    copied_transactions = open_transactions[:]
-    copied_transactions.append(reward_transaction)
+    open_transactions.append(reward_transaction)
     block = {
         'previous_hash': hashed_block,
         'index': len(blockchain),
-        'transactions': copied_transactions
+        'transactions': open_transactions
     }
     blockchain.append(block)
     return True
-
 
 def get_transaction_value():
     """ Returns the input of the user (a new transaction amount) as a float. """
@@ -141,9 +138,9 @@ while waiting_for_input:
         recipient, amount = tx_data
         # Add the transaction amount to the blockchain
         if add_transaction(recipient, amount=amount):
-            print('Added transaction!')
+            print('Added transaction.')
         else:
-            print('Transaction failed!')
+            print('Transaction failed.')
         print(open_transactions)
     elif user_choice == '2':
         if mine_block():
@@ -158,7 +155,7 @@ while waiting_for_input:
             blockchain[0] = {
                 'previous_hash': '',
                 'index': 0,
-                'transactions': [{'sender': 'Chris', 'recipient': 'Max', 'amount': 100.0}]
+                'transactions': [{'sender': 'Chris', 'recipient': 'Serhiy', 'amount': 100.0}]
             }
     elif user_choice == 'q':
         # This will lead to the loop to exist because it's running condition becomes False
@@ -170,7 +167,7 @@ while waiting_for_input:
         print('Invalid blockchain!')
         # Break out of the loop
         break
-    print(get_balance('Max'))
+    print(get_balance(owner))
 else:
     print('User left!')
 
