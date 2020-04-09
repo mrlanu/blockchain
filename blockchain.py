@@ -1,10 +1,11 @@
 import functools
 import hashlib
-import json
 from collections import OrderedDict
 
-MINING_REWARD = 10
+from hash_util import hash_string_256, hash_block
 
+
+MINING_REWARD = 10
 genesis_block = {
     'previous_hash': '',
     'index': 0,
@@ -19,7 +20,7 @@ participants = {'Serhiy'}
 
 def valid_proof(transactions, last_hash, proof):
     guess = (str(transactions) + str(last_hash) + str(proof)).encode()
-    guess_hash = hashlib.sha256(guess).hexdigest()
+    guess_hash = hash_string_256(guess)
     print(guess_hash)
     return guess_hash[0:2] == '00'
 
@@ -31,10 +32,6 @@ def proof_of_work():
     while not valid_proof(open_transactions, last_hash, proof):
         proof +=1
     return proof
-
-
-def hash_block(block):
-    return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
 
 
 def get_balance(participant):
@@ -58,11 +55,10 @@ def verify_transaction(transaction):
     sender_balance = get_balance(transaction['sender'])
     return sender_balance >= transaction['amount']
 
+
 # This function accepts two arguments.
 # One required one (transaction_amount) and one optional one (last_transaction)
 # The optional one is optional because it has a default value => [1]
-
-
 def add_transaction(recipient, sender=owner, amount=1.0):
     """ Append a new value as well as the last blockchain value to the blockchain.
 
@@ -95,6 +91,7 @@ def mine_block():
     }
     blockchain.append(block)
     return True
+
 
 def get_transaction_value():
     """ Returns the input of the user (a new transaction amount) as a float. """
