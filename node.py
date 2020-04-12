@@ -45,7 +45,7 @@ class Node:
                 waiting_for_input = False
             else:
                 print('Input was invalid, please pick a value from the list!')
-            if not Verification.verify_chain(self.blockchain.get_chain()):
+            if not Verification.verify_chain(self.blockchain.chain):
                 self.print_blockchain_elements()
                 print('Invalid blockchain!')
                 # Break out of the loop
