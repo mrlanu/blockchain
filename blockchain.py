@@ -1,11 +1,11 @@
 import functools
 import hashlib
 import json
-from collections import OrderedDict
+
 from block import Block
 from transaction import Transaction
-from hash_util import hash_block
-from verification import Verification
+from utility.hash_util import hash_block
+from utility.verification import Verification
 
 
 MINING_REWARD = 10
