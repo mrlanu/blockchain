@@ -1,5 +1,5 @@
 {
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "/usr/local/bin/python3.8"
+    "python.pythonPath": "/home/lanu/development/MyProjects/Python-apps/blockchain/blockchain_venv/bin/python3.8"
 }
