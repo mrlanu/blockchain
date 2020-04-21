@@ -36,7 +36,7 @@ class Blockchain:
 
     def load_data(self):
         try:
-            with open('blockchaint.txt', mode='r') as f:
+            with open('blockchain.txt', mode='r') as f:
                 file_content = f.readlines()
                 blockchain = json.loads(file_content[0][:-1])
                 updated_blockchain = []
@@ -57,7 +57,7 @@ class Blockchain:
     
     def save_data(self):
             try:
-                with open('blockchaint.txt', mode='w') as f:
+                with open('blockchain.txt', mode='w') as f:
                     saveable_chain = [block.__dict__ for block in [Block(block_el.index, block_el.previous_hash, [tx.__dict__ for tx in block_el.transactions], block_el.proof, block_el.timestamp) for block_el in self.__chain]]
                     f.write(json.dumps(saveable_chain))
                     f.write('\n')
